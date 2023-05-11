@@ -1,4 +1,5 @@
 using System;
+namespace SubmissionChecker;
 
 public class Submission
 {

@@ -1,3 +1,4 @@
+namespace SubmissionChecker;
 public class Repository
 {
   public enum RepoStatus { ok, warning }
@@ -7,13 +8,13 @@ public class Repository
   public DateTime LatestCommit { get; private set; }
 
   private static readonly RestClient restClient = new("https://api.github.com");
-  private static readonly string token = "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";
 
   public RepoStatus Status { get; private set; }
   public string StatusMessage { get; private set; }
 
   static Repository()
   {
+    string token = File.ReadAllText(@"GithubApiToken.txt");
     restClient.AddDefaultHeader("Authorization", "token " + token);
   }
 
@@ -43,8 +44,17 @@ public class Repository
     }
     else
     {
+      // TODO: 404 check: do not trust the status code
       Console.WriteLine($"Cloning {Name}");
-      LibGit2Sharp.Repository.Clone($"https://github.com/{Url}.git", targetDirectory);
+      try
+      {
+        LibGit2Sharp.Repository.Clone($"https://github.com/{Url}.git", targetDirectory);
+      }
+      catch (Exception e)
+      {
+        Console.WriteLine($"Failed to clone {Name}: {e.Message}");
+        return "Failed to clone";
+      }
       return "";
     }
   }

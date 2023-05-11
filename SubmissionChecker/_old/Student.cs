@@ -1,22 +1,31 @@
+namespace SubmissionChecker;
 
 public class Student
 {
   public string Name { get; private set; }
+  public string Surname { get; private set; }
   public string Email { get; private set; }
   public string Github { get; private set; }
+  public string GoogleId { get; private set; }
   public Dictionary<Assignment, Submission> Submissions { get; private set; }
 
-  public Student(string name, string email, string github)
+  public string FullName {
+    get { return Surname + " " + Name; }
+  }
+
+  public Student(string name, string surname, string email, string github = "", string googleId = "")
   {
     Name = name;
+    Surname = surname;
     Email = email;
     Github = github;
+    GoogleId = googleId;
     Submissions = new Dictionary<Assignment, Submission>();
   }
 
   public override string ToString()
   {
-    return $"{Name} ({Email})";
+    return $"{Surname} {Name} ({Email})";
   }
 
   public void AddSubmission(Assignment assignment, Submission submission)
@@ -40,7 +49,8 @@ public class Student
         Console.WriteLine("    " + repo);
       }
     }
-    else {
+    else
+    {
       Console.WriteLine("    No repos");
     }
   }
@@ -78,5 +88,27 @@ public class Student
     Console.Write(" ");
     Console.BackgroundColor = bg;
     Console.ForegroundColor = fg;
+  }
+
+  public void SyncReposToFolder(Assignment assignment, string targetFolder)
+  {
+    foreach (Repository repo in Submissions[assignment].Repos)
+    {
+      if (repo.Status == Repository.RepoStatus.ok)
+      {
+        string repoFolder = targetFolder;
+        if (Submissions[assignment].Repos.Count > 1)
+        {
+          repoFolder += Path.DirectorySeparatorChar + repo.Name;
+        }
+
+        if (!Directory.Exists(repoFolder))
+        {
+          Directory.CreateDirectory(repoFolder);
+        }
+        Console.WriteLine("Syncing " + repo.Name + " to " + repoFolder);
+        repo.SyncToFolder(repoFolder);
+      }
+    }
   }
 }
