@@ -1,10 +1,13 @@
-using System;
 namespace SubmissionChecker;
 
 public class Submission
 {
+  /// <summary>
+  /// Red = No valid repo
+  /// Yellow = Valid, only old commits
+  /// Green = Valid, new commits
+  /// </summary>
   public enum Flags {red, yellow, green}
-
 
   public Assignment Assignment { get; private set; }
 
@@ -21,13 +24,13 @@ public class Submission
     Repos.Add(repo);
   }
 
-  public Flags GetStatus()
+  public Flags GetStatus(int greenHours = 24)
   {
     Flags statusFlag = Flags.red;
     foreach (Repository repo in Repos)
     {
       TimeSpan age = DateTime.Now - repo.LatestCommit;
-      if (age.TotalHours < 24) return Flags.green;
+      if (age.TotalHours < greenHours) return Flags.green;
       if (repo.Status == Repository.RepoStatus.ok) statusFlag = Flags.yellow;
     }
     

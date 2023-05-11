@@ -1,7 +1,9 @@
 namespace SubmissionChecker;
+using LibGit2Sharp;
 public class Repository
 {
   public enum RepoStatus { ok, warning }
+  public enum Flags {red, yellow, green}
 
   public string Url { get; private set; }
   public string Name { get; private set; }
@@ -12,9 +14,13 @@ public class Repository
   public RepoStatus Status { get; private set; }
   public string StatusMessage { get; private set; }
 
+  public Flags CommitStatus { get; private set; }
+
+  public static string GithubApiTokenFilename;
+
   static Repository()
   {
-    string token = File.ReadAllText(@"GithubApiToken.txt");
+    string token = File.ReadAllText(GithubApiTokenFilename);
     restClient.AddDefaultHeader("Authorization", "token " + token);
   }
 
@@ -37,6 +43,7 @@ public class Repository
       Console.WriteLine($"Updating {Name}");
       LibGit2Sharp.Repository rp = new(targetDirectory);
       MergeResult mergeResult = Commands.Pull(rp,
+        // TODO: Fix signature
         new Signature("SubmissionChecker", "mikael.bergstrom@ga.ntig.se", DateTimeOffset.Now),
         new PullOptions()
       );
@@ -93,5 +100,10 @@ public class Repository
     {
       Console.WriteLine($"Error: {e.Message}");
     }
+  }
+
+  public void PrintStatus()
+  {
+    
   }
 }

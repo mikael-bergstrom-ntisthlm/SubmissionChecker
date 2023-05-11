@@ -76,7 +76,7 @@ namespace ConsoleMenu
 
     public List<T> GetChoices()
     {
-      List<T> choices = new List<T>();
+      List<T> choices = new();
 
       string choice = "";
       while (choice != "q")

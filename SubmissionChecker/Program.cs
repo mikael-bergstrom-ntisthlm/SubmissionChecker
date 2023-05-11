@@ -1,7 +1,7 @@
 ﻿global using RestSharp;
 global using System.Text.Json;
 global using System.IO;
-global using LibGit2Sharp;
+// global using LibGit2Sharp;
 
 global using Google.Apis.Auth.OAuth2;
 global using Google.Apis.Classroom.v1;
@@ -12,13 +12,12 @@ global using Google.Apis.Util.Store;
 using SubmissionChecker;
 using SubmissionChecker.Classroom;
 
-using ConsoleMenu;
-
 // --- PARAMETERS ---
 
 string ApplicationName = "SubmissionChecker";
 string credentialsPath = @".\Credentials\credentials.json";
 string courseworkJsonFile = "coursework.json";
+Repository.GithubApiTokenFilename = @".\Credentials\GithubApiToken.txt";
 
 // --- PREPARE DATA ---
 ClassroomConnection connection = new(credentialsPath, ApplicationName);
@@ -52,6 +51,13 @@ if (data == null || !data.IsValid())
   Console.WriteLine($"Saving to {courseworkJsonFile}...");
   data.SaveToFile(courseworkJsonFile);
 }
+
+
+// --- GET DATA
+
+// Get list of all students
+
+
 
 // --- MAIN DISPLAY ---
 

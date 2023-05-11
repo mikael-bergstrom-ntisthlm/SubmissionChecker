@@ -396,5 +396,5 @@ FodyWeavers.xsd
 
 # JetBrains Rider
 *.sln.iml
-SubmissionChecker/GithubApiToken.txt
+SubmissionChecker/Credentials
 SubmissionChecker/token.json/*
