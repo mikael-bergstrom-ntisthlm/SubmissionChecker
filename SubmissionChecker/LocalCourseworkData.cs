@@ -1,3 +1,4 @@
+using System.Text.Json.Serialization;
 using SubmissionChecker.Classroom;
 
 namespace SubmissionChecker;
@@ -7,6 +8,10 @@ public class LocalCourseworkData
   public string Title { get; set; }
   public string ClassroomCourseId { get; set; }
   public string ClassroomCourseworkId { get; set; }
+  public List<Student> Students { get; set; } = new();
+
+  [JsonIgnore]
+  public ClassroomConnection Connection { get; set; }
 
   public void SaveToFile(string file)
   {
@@ -24,6 +29,38 @@ public class LocalCourseworkData
   public bool IsValid()
   {
     return Title != "" && ClassroomCourseId != "" && ClassroomCourseworkId != "";
+  }
+
+  public void FetchStudents()
+  {
+    if (Connection == null) return;
+    Students = Connection.GetStudents(ClassroomCourseId);
+  }
+
+  public void FetchRepositories()
+  {
+    if (Connection == null || Students.Count == 0) return;
+
+    Dictionary<string, List<GithubRepository>> repos = Connection.GetRepositories(ClassroomCourseId, ClassroomCourseworkId, Students.Select(s => s.GoogleId).ToList<string>());
+
+    foreach(string studentId in repos.Keys)
+    {
+      Student student = Students.Find(x => x.GoogleId == studentId);
+      if (student == null) continue;
+
+      // TODO: Append, and only new ones
+
+      student.Repositories = repos[studentId];
+
+    }
+  }
+
+  public void UpdateRepoInfo()
+  {
+    foreach (Student student in Students)
+    {
+      student.UpdateRepoStatus();
+    }
   }
 
   public static LocalCourseworkData CreateFromChoices(ClassroomConnection connection)

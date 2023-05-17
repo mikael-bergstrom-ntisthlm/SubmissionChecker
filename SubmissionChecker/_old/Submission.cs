@@ -11,15 +11,15 @@ public class Submission
 
   public Assignment Assignment { get; private set; }
 
-  public List<Repository> Repos { get; private set; }
+  public List<GithubRepository> Repos { get; private set; }
 
   public Submission(Assignment assignment)
   {
     Assignment = assignment;
-    Repos = new List<Repository>();
+    Repos = new List<GithubRepository>();
   }
 
-  public void AddRepo(Repository repo)
+  public void AddRepo(GithubRepository repo)
   {
     Repos.Add(repo);
   }
@@ -27,11 +27,11 @@ public class Submission
   public Flags GetStatus(int greenHours = 24)
   {
     Flags statusFlag = Flags.red;
-    foreach (Repository repo in Repos)
+    foreach (GithubRepository repo in Repos)
     {
       TimeSpan age = DateTime.Now - repo.LatestCommit;
       if (age.TotalHours < greenHours) return Flags.green;
-      if (repo.Status == Repository.RepoStatus.ok) statusFlag = Flags.yellow;
+      if (repo.Status == GithubRepository.RepoStatus.ok) statusFlag = Flags.yellow;
     }
     
     return statusFlag;

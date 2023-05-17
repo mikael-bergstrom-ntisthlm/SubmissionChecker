@@ -1,4 +1,4 @@
-using System;
+using System.Text.RegularExpressions;
 
 namespace SubmissionChecker.Classroom;
 
@@ -155,11 +155,14 @@ public class ClassroomConnection
         foreach (var student in response.Students)
         {
           students.Add(
-            new Student(student.Profile.Name.GivenName,
-                        student.Profile.Name.FamilyName,
-                        student.Profile.EmailAddress,
-                        student.Profile.Id,
-                        ""));
+            new Student()
+            {
+              Name = student.Profile.Name.GivenName,
+              Surname = student.Profile.Name.FamilyName,
+              Email = student.Profile.EmailAddress,
+              GoogleId = student.Profile.Id
+            }
+          );
         }
         return students;
       }
@@ -171,31 +174,42 @@ public class ClassroomConnection
     return new List<Student>();
   }
 
-  public void GetAssignments(Course course, ICollection<string> assignmentIds)
+  public Dictionary<string, List<GithubRepository>> GetRepositories(string courseId, string courseWorkId, List<string> studentIds)
   {
-    // TODO: make list of Assigment objects
-  }
+    Dictionary<string, List<GithubRepository>> repositories = new();
 
-  public Dictionary<string, Submission> GetSubmissions(string courseId, Assignment assignment)
-  {
-    Dictionary<string, Submission> submissions = new(); // studentId, submission
-
-    CoursesResource.CourseWorkResource.StudentSubmissionsResource.ListRequest request = service.Courses.CourseWork.StudentSubmissions.List(courseId, assignment.GoogleAssignmentId);
-    request.PageSize = 50;
-
+    var request = service.Courses.CourseWork.StudentSubmissions.List(courseId, courseWorkId);
     var response = request.Execute();
 
-    if (response.StudentSubmissions != null && response.StudentSubmissions.Count > 0)
+    if (response.StudentSubmissions == null) return null;
+
+    // TODO: Get more submissions
+    if (response.NextPageToken != null) Console.WriteLine("huh?");
+
+    foreach (var submission in response.StudentSubmissions)
     {
-      foreach (StudentSubmission submission in response.StudentSubmissions)
+      if (!studentIds.Contains(submission.UserId)) continue;
+      if (!repositories.ContainsKey(submission.UserId))
       {
-        // Submission sub = new(assignment);
-        // sub.Repos.AddRange(InterpretSubmissionAttachments(submission));
-        // submissions.Add(submission.UserId, sub);
+        repositories.Add(submission.UserId, new List<GithubRepository>());
+      }
+
+      if (submission.AssignmentSubmission.Attachments == null) continue;
+
+      // Go through all attachments
+      foreach (Attachment attachment in submission.AssignmentSubmission.Attachments)
+      {
+        if (attachment.Link == null) continue;
+
+        if (!GithubRepository.IsValid(attachment.Link.Url)) continue;
+
+        GithubRepository repo = new (attachment.Link.Url);
+
+        repositories[submission.UserId].Add(repo);
       }
     }
 
-    return submissions;
+    return repositories;
   }
 
   public class CourseworkInfo

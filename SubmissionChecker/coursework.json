@@ -1,5 +1,229 @@
 {
   "title": "PROJEKT: Slutprojektet",
-  "classroomCourseId": "538231794702",
-  "classroomCourseworkId": "593901453499"
+  "classroomCourseId": "526371380783",
+  "classroomCourseworkId": "593905021550",
+  "students": [
+    {
+      "name": "Nemo",
+      "surname": "Borgenport",
+      "email": "borgenport.nemo@elev.ga.ntig.se",
+      "googleId": "100630522937893164101",
+      "repositories": [
+        {
+          "username": "Leif64",
+          "reponame": "Slutprojekt",
+          "title": "Slutprojekt",
+          "latestCommit": "2023-05-11T10:31:53Z"
+        }
+      ]
+    },
+    {
+      "name": "Philip",
+      "surname": "Chroona",
+      "email": "chroona.philip@elev.ga.ntig.se",
+      "googleId": "114536781634117129922",
+      "repositories": [
+        {
+          "username": "PhilipC9",
+          "reponame": "FlappySpel-Slutprojekt",
+          "title": "FlappySpel-Slutprojekt",
+          "latestCommit": "2023-05-14T12:17:48Z"
+        }
+      ]
+    },
+    {
+      "name": "William",
+      "surname": "Bergman",
+      "email": "bergman.william@elev.ga.ntig.se",
+      "googleId": "104827134200329218374",
+      "repositories": []
+    },
+    {
+      "name": "Victor",
+      "surname": "Leider\u00F6 Palml\u00F6v",
+      "email": "leideropalmlov.victor@elev.ga.ntig.se",
+      "googleId": "115842061648804265014",
+      "repositories": []
+    },
+    {
+      "name": "Oscar",
+      "surname": "Jansson",
+      "email": "jansson.oscar@elev.ga.ntig.se",
+      "googleId": "118192330927909732474",
+      "repositories": []
+    },
+    {
+      "name": "Loke",
+      "surname": "L\u00F6wenberg Pettersson",
+      "email": "lowenbergpettersson.loke@elev.ga.ntig.se",
+      "googleId": "105498607938022310070",
+      "repositories": []
+    },
+    {
+      "name": "Vincent",
+      "surname": "Allingg\u00E5rd",
+      "email": "allinggard.vincent@elev.ga.ntig.se",
+      "googleId": "109682229434708895963",
+      "repositories": [
+        {
+          "username": "Dragonborn50505",
+          "reponame": "Slutprojekt",
+          "title": "Slutprojekt",
+          "latestCommit": "2023-05-04T08:55:09Z"
+        },
+        {
+          "username": "Dragonborn50505",
+          "reponame": "RestingBFace",
+          "title": "RestingBFace",
+          "latestCommit": "2022-11-17T09:54:53Z"
+        },
+        {
+          "username": "Dragonborn50505",
+          "reponame": "NetworkJeff-master",
+          "title": "NetworkJeff-master",
+          "latestCommit": "2023-04-27T08:57:49Z"
+        }
+      ]
+    },
+    {
+      "name": "Moiz",
+      "surname": "Khan",
+      "email": "khan.moiz@elev.ga.ntig.se",
+      "googleId": "111337905674145812298",
+      "repositories": []
+    },
+    {
+      "name": "Emelina",
+      "surname": "Frisell",
+      "email": "frisell.emelina@elev.ga.ntig.se",
+      "googleId": "112183995558503215695",
+      "repositories": []
+    },
+    {
+      "name": "Filip",
+      "surname": "Sikon",
+      "email": "filip.sikon@elev.ga.ntig.se",
+      "googleId": "104238965075377254273",
+      "repositories": []
+    },
+    {
+      "name": "Daniel",
+      "surname": "Sternl\u00E9vi",
+      "email": "sternlevi.daniel@elev.ga.ntig.se",
+      "googleId": "108647326220622967293",
+      "repositories": []
+    },
+    {
+      "name": "Hilda",
+      "surname": "Glimrot",
+      "email": "glimrot.hilda@elev.ga.ntig.se",
+      "googleId": "111694714375728253662",
+      "repositories": [
+        {
+          "username": "Hildaaaaaaaa",
+          "reponame": "lista",
+          "title": "lista",
+          "latestCommit": "2023-04-27T09:08:17Z"
+        }
+      ]
+    },
+    {
+      "name": "Aaryan",
+      "surname": "Hegde",
+      "email": "hegde.aaryan@elev.ga.ntig.se",
+      "googleId": "109474280583483110258",
+      "repositories": []
+    },
+    {
+      "name": "Alexander",
+      "surname": "\u00C5slund",
+      "email": "aslund.alexander@elev.ga.ntig.se",
+      "googleId": "106953849690115377200",
+      "repositories": []
+    },
+    {
+      "name": "Olle",
+      "surname": "J\u00E4rvheden",
+      "email": "jarvheden.olle@elev.ga.ntig.se",
+      "googleId": "117279104683323934984",
+      "repositories": [
+        {
+          "username": "Reemly",
+          "reponame": "Slut-Projekt",
+          "title": "Slut-Projekt",
+          "latestCommit": "2023-04-24T11:37:04Z"
+        }
+      ]
+    },
+    {
+      "name": "Kevin",
+      "surname": "Bengtsson",
+      "email": "bengtsson.kevin@elev.ga.ntig.se",
+      "googleId": "112537164071038844383",
+      "repositories": [
+        {
+          "username": "WasianKevin",
+          "reponame": "ProjectKirby",
+          "title": "ProjectKirby",
+          "latestCommit": "2023-05-08T10:53:30Z"
+        }
+      ]
+    },
+    {
+      "name": "Nils",
+      "surname": "Berglund",
+      "email": "berglund.nils@elev.ga.ntig.se",
+      "googleId": "111950366020542879899",
+      "repositories": []
+    },
+    {
+      "name": "Elliot",
+      "surname": "Walker",
+      "email": "walker.elliot@elev.ga.ntig.se",
+      "googleId": "105141350888921602060",
+      "repositories": [
+        {
+          "username": "TheOnlyGithubEnjoyer",
+          "reponame": "Slut_Projekt",
+          "title": "Slut_Projekt",
+          "latestCommit": "2023-04-27T08:59:01Z"
+        }
+      ]
+    },
+    {
+      "name": "Tuva",
+      "surname": "Axelsson",
+      "email": "tuva.axelsson@elev.ga.ntig.se",
+      "googleId": "116301775253026119597",
+      "repositories": []
+    },
+    {
+      "name": "Olle",
+      "surname": "Brink Wennberg",
+      "email": "olle.brinkwennberg@elev.ga.ntig.se",
+      "googleId": "114978421318635304786",
+      "repositories": [
+        {
+          "username": "OlleBW",
+          "reponame": "VinterProject",
+          "title": "VinterProject",
+          "latestCommit": "2023-04-24T08:21:39Z"
+        }
+      ]
+    },
+    {
+      "name": "Jordan",
+      "surname": "Torell",
+      "email": "torell.jordan@elev.ga.ntig.se",
+      "googleId": "102366170028906038833",
+      "repositories": [
+        {
+          "username": "4reshPrince",
+          "reponame": "Slutprojekt",
+          "title": "Slutprojekt",
+          "latestCommit": "2023-05-14T15:45:01Z"
+        }
+      ]
+    }
+  ]
 }

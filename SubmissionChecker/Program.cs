@@ -11,16 +11,19 @@ global using Google.Apis.Util.Store;
 
 using SubmissionChecker;
 using SubmissionChecker.Classroom;
+using Student = SubmissionChecker.Student;
+
+// Github token MUST have "full control over private repos"
 
 // --- PARAMETERS ---
 
 string ApplicationName = "SubmissionChecker";
-string credentialsPath = @".\Credentials\credentials.json";
+string googleCredentialsPath = @".\Credentials\GoogleCredentials.json";
 string courseworkJsonFile = "coursework.json";
-Repository.GithubApiTokenFilename = @".\Credentials\GithubApiToken.txt";
+GithubRepository.GithubApiTokenFilename = @".\Credentials\GithubApiToken";
 
 // --- PREPARE DATA ---
-ClassroomConnection connection = new(credentialsPath, ApplicationName);
+ClassroomConnection connection = new(googleCredentialsPath, ApplicationName);
 
 LocalCourseworkData data = null;
 
@@ -52,14 +55,27 @@ if (data == null || !data.IsValid())
   data.SaveToFile(courseworkJsonFile);
 }
 
+data.Connection = connection;
+
 
 // --- GET DATA
 
 // Get list of all students
+data.FetchStudents();
 
+data.FetchRepositories();
 
+data.UpdateRepoInfo();
 
 // --- MAIN DISPLAY ---
+
+foreach(Student student in data.Students)
+{
+  student.Print();
+}
+
+data.SaveToFile(courseworkJsonFile);
+
 
 // Display each student's submission status
 //  Green: Submitted commit within the last day
@@ -71,11 +87,11 @@ if (data == null || !data.IsValid())
 //  Show student's github link & latest commit
 //  Clone / pull student repository
 
+
+// --- struktur
 /*
-SVEN ERIKSSON
-  https://www.github.com/sven/eriksson.git
-PETRA PIETROVSKI
-  https://www.github.com/petra/slutprojekt.git
+
+
 */
 
 Console.ReadLine();

@@ -1,24 +1,18 @@
+using System.Text.Json.Serialization;
+
 namespace SubmissionChecker;
 
 public class Student
 {
-  public string Name { get; private set; }
-  public string Surname { get; private set; }
-  public string Email { get; private set; }
-  public string Github { get; private set; }
-  public string GoogleId { get; private set; }
+  public string Name { get; set; }
+  public string Surname { get; set; }
+  public string Email { get; set; }
+  public string GoogleId { get; set; }
 
+  [JsonIgnore]
   public string FullName => $"{Name} {Surname}";
 
-  public List<Repository> repositories = new();
-
-  public Student(string name, string surname, string email, string googleId = "")
-  {
-    Name = name;
-    Surname = surname;
-    Email = email;
-    GoogleId = googleId;
-  }
+  public List<GithubRepository> Repositories { get; set; } = new();
 
   public override string ToString()
   {
@@ -27,7 +21,20 @@ public class Student
 
   public void Print()
   {
-    Console.Write($"{this} ");
+    Console.WriteLine($"{this} ");
+    foreach(GithubRepository repo in Repositories)
+    {
+      Console.WriteLine($" - {repo}");
+    }
+    // Console.WriteLine();
+  }
+
+  public void UpdateRepoStatus()
+  {
+    foreach (GithubRepository repo in Repositories)
+    {
+      repo.UpdateCommitInfo();
+    }
   }
 
 
