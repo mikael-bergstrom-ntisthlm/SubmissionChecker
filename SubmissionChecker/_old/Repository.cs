@@ -3,10 +3,22 @@ namespace SubmissionChecker;
 using System.Text.Json.Serialization;
 using System.Text.RegularExpressions;
 using LibGit2Sharp;
+using ColorPrinter;
 public class GithubRepository
 {
+
+  /*
+    Each repo has a local folder
+      Check if folder exists
+      Check if folder contains a git repo
+      Check if folder's git repo remote matches Username/Reponame
+      Check if local repo is updated
+      Clone/Pull repo to local folder
+      Discard local changes
+  */
+
+
   public enum RepoStatus { ok, warning }
-  public enum Flags { red, yellow, green }
 
   public string Username { get; set; }
   public string Reponame { get; set; }
@@ -21,9 +33,6 @@ public class GithubRepository
   public RepoStatus Status { get; private set; }
   [JsonIgnore]
   public string StatusMessage { get; private set; }
-
-  [JsonIgnore]
-  public Flags CommitStatus { get; private set; }
 
   public static string GithubApiTokenFilename
   {
@@ -67,7 +76,32 @@ public class GithubRepository
 
   public override string ToString()
   {
-    return $"{Title} [{LatestCommit}]";
+    return $"{Title} [{LatestCommit} - {(DateTime.Now - LatestCommit).Days} days old]";
+  }
+
+  public void WriteStatus()
+  {
+    int recent = 5; // commits more recent than 5 days are "recent"
+    int old = 10; // commits older than 10 days are "old"
+
+    TimeSpan age = DateTime.Now - LatestCommit;
+    if (Status == RepoStatus.warning)
+    {
+      Printer.Write("█", ConsoleColor.Gray);
+    }
+
+    if (age.TotalDays < recent)
+    {
+      Printer.Write("█", ConsoleColor.Green);
+    }
+    else if (age.TotalDays < old)
+    {
+      Printer.Write("█", ConsoleColor.Yellow);
+    }
+    else
+    {
+      Printer.Write("█", ConsoleColor.Red);
+    }
   }
 
   public string SyncToFolder(string targetDirectory)

@@ -32,7 +32,6 @@ namespace ConsoleMenu
       Console.Clear();
       Console.CursorVisible = false;
 
-
       // Display title
       Console.WriteLine(_title);
 

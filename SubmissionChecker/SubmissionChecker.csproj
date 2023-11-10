@@ -8,6 +8,11 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Content Include="Credentials\**\*.*" CopyToOutputDirectory="PreserveNewest"/>
+    <Content Include="token.json\**\*.*" CopyToOutputDirectory="PreserveNewest"/>
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="Google.Apis.Classroom.v1" Version="1.60.0.3001" />
     <PackageReference Include="LibGit2Sharp" Version="0.27.2" />
     <PackageReference Include="RestSharp" Version="110.2.0" />

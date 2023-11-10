@@ -35,6 +35,7 @@ public class LocalCourseworkData
   {
     if (Connection == null) return;
     Students = Connection.GetStudents(ClassroomCourseId);
+    Students.Sort((x, y) => x.Surname.CompareTo(y.Surname));
   }
 
   public void FetchRepositories()
@@ -49,9 +50,7 @@ public class LocalCourseworkData
       if (student == null) continue;
 
       // TODO: Append, and only new ones
-
       student.Repositories = repos[studentId];
-
     }
   }
 

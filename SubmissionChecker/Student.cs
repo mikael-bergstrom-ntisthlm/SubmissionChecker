@@ -19,13 +19,40 @@ public class Student
     return $"{Surname} {Name} ({Email})";
   }
 
-  public void Print()
+  public void Print(bool includeRepos = false)
   {
-    Console.WriteLine($"{this} ");
-    foreach(GithubRepository repo in Repositories)
+
+    if (includeRepos)
     {
-      Console.WriteLine($" - {repo}");
+      Console.WriteLine($"{this} ");
+      foreach (GithubRepository repo in Repositories)
+      {
+        Console.Write("  ");
+        repo.WriteStatus();
+        Console.Write($" {repo}");
+        Console.WriteLine();
+      }
     }
+    else
+    {
+      GithubRepository mostRecent = Repositories.OrderByDescending(x => x.LatestCommit).FirstOrDefault();
+
+
+      if (mostRecent != null)
+      {
+        // Console.Write("  ");
+        mostRecent.WriteStatus();
+        // Console.Write($" {mostRecent}");
+        // Console.WriteLine();
+      }
+      else
+      {
+        Console.Write(" ");
+      }
+      Console.WriteLine($" {this}");
+    }
+
+
     // Console.WriteLine();
   }
 

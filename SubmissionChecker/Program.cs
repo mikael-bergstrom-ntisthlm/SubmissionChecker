@@ -1,7 +1,24 @@
-﻿global using RestSharp;
+﻿/*
+CLEANUP & TESTING
+ Fixing github token checking
+ Local application data special folder
+Commandline vs menu
+Make sure we can sync w/ classroom
+Make sure we can sync local repos w/ remote
+Generate report (html? Open w/ browser?)
+
+Commandline usage:
+ checker [coursework.json] --updateclassroom
+ checker [coursework.json] --updateclassroom --classroom [classroomcode] --coursework [courseworkcode]
+   (Warn if changing)
+ checker [coursework.json] --sync-git
+ checker [coursework.json] --report
+*/
+
+
+global using RestSharp;
 global using System.Text.Json;
 global using System.IO;
-// global using LibGit2Sharp;
 
 global using Google.Apis.Auth.OAuth2;
 global using Google.Apis.Classroom.v1;
@@ -71,7 +88,7 @@ data.UpdateRepoInfo();
 
 foreach(Student student in data.Students)
 {
-  student.Print();
+  student.Print(true);
 }
 
 data.SaveToFile(courseworkJsonFile);
